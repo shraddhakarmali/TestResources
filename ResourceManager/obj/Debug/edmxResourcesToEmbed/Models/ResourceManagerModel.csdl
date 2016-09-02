@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResourcesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Host">
+    <Key>
+      <PropertyRef Name="HostName" />
+    </Key>
+    <Property Name="HostName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IP" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Hosts" FromRole="Hosts" ToRole="Requests" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="RequestId" />
+    </Key>
+    <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RequestedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CheckoutTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReturnTime" Type="DateTime" Precision="3" />
+    <Property Name="HostName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Host" Relationship="Self.FK_Requests_Hosts" FromRole="Requests" ToRole="Hosts" />
+  </EntityType>
+  <Association Name="FK_Requests_Hosts">
+    <End Role="Hosts" Type="Self.Host" Multiplicity="1" />
+    <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hosts">
+        <PropertyRef Name="HostName" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="HostName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResourcesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Hosts" EntityType="Self.Host" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <AssociationSet Name="FK_Requests_Hosts" Association="Self.FK_Requests_Hosts">
+      <End Role="Hosts" EntitySet="Hosts" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
