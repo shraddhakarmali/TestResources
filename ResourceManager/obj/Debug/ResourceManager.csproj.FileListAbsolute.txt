@@ -1,4 +1,3 @@
-D:\GitHub\TestResources\ResourceManager\obj\Debug\ResourceManager.csprojResolveAssemblyReference.cache
 D:\GitHub\TestResources\ResourceManager\bin\ApplicationInsights.config
 D:\GitHub\TestResources\ResourceManager\bin\roslyn\csc.exe
 D:\GitHub\TestResources\ResourceManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll

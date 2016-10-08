@@ -161,13 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.component.html" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
     <Content Include="Models\ResourceManagerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ResourceManagerModel.edmx</DependentUpon>
@@ -178,20 +172,6 @@
       <DependentUpon>ResourceManagerModel.edmx</DependentUpon>
       <LastGenOutput>ResourceManagerModel.cs</LastGenOutput>
     </Content>
-    <Content Include="scripts\ai.0.15.0-build58334.js" />
-    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
-    <None Include="scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
-    <Content Include="scripts\jquery-1.10.2.min.js" />
-    <None Include="scripts\jquery.validate-vsdoc.js" />
-    <Content Include="scripts\jquery.validate.js" />
-    <Content Include="scripts\jquery.validate.min.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="scripts\modernizr-2.6.2.js" />
-    <Content Include="styles.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -242,19 +222,7 @@
     <Content Include="Models\ResourceManagerModel.edmx.diagram">
       <DependentUpon>ResourceManagerModel.edmx</DependentUpon>
     </Content>
-    <Content Include="package.json" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\MyResourceManager.pubxml" />
-    <Content Include="typings.json" />
-    <Content Include="tsconfig.json" />
-    <Content Include="systemjs.config.js" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\web.config" />
-    <Content Include="scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -264,16 +232,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
