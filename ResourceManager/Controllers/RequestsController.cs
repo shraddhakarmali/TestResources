@@ -19,7 +19,7 @@ namespace ResourceManager.Controllers
         // GET: api/Requests
         public IQueryable<Request> GetRequests()
         {
-            return db.Requests;
+              return db.Requests;
         }
 
         // GET: api/Requests/5
@@ -77,6 +77,18 @@ namespace ResourceManager.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            request.RequestedOn = DateTime.Now;
+            request.UserName = User.Identity.Name; 
+
+            if (!request.IsActive)
+            {
+                request.ReturnTime = DateTime.Now;
+            }
+            else
+            {
+                request.CheckoutTime = DateTime.Now;
             }
 
             db.Requests.Add(request);

@@ -9,9 +9,11 @@
 
 namespace ResourceManager.Models
 {
+    using Newtonsoft.Json;
     using System;
+
     using System.Collections.Generic;
-    
+
     public partial class Request
     {
         public int RequestId { get; set; }
@@ -21,7 +23,9 @@ namespace ResourceManager.Models
         public Nullable<System.DateTime> ReturnTime { get; set; }
         public string HostName { get; set; }
         public bool IsActive { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Host Host { get; set; }
+
     }
 }
