@@ -22,7 +22,7 @@ export class Host {
     selector: 'app-container',
     templateUrl: './app.container.html',
 })
-export class AppContainer {
+export class AppContainer implements OnInit {
 hosts = [];
     user = "";
     myValue = true;
@@ -41,21 +41,21 @@ hosts = [];
 
     onRequest(event$) {
         console.log(event$.HostName);
-        this._http
+        /*this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: true }), { headers: this.headers })
             .toPromise()
             .then()
-            .catch();
+            .catch();*/
 
     }
 
     onRelease(event$) {
         console.log(event$.HostName);
-        this._http
+       /* this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: false }), { headers: this.headers })
             .toPromise()
             .then()
-            .catch();
+            .catch();*/
     }
 
     ngOnInit() {
@@ -65,6 +65,7 @@ hosts = [];
             .map((r: Response) => { this.user = r.json(); console.log("User name in map " + r.json()); } )
             .subscribe(x => { });
 
+            
         this._http
             .get(`http://localhost/ResourceManager/api/Hosts`)
             .map((r: Response) => r.json() as Host[]).subscribe(x => { this.hosts = x; console.log(x); },
