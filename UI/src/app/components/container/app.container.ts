@@ -53,13 +53,21 @@ hosts = [];
 
     onRelease(event$) {
         console.log(event$.HostName);
+        var request;
+        
+        event$.Requests.forEach(element => {
+            if(element.UserName == this.user){
+                request = element;
+            }
+        });
+        console.log(request.RequestId);
         this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify(
                 { 
-                    RequestId: event$.RequestId,
+                    RequestId: request.RequestId,
                     HostName: event$.HostName, 
-                    IsActive: true ,
-                    CheckoutTime: event$.CheckoutTime
+                    IsActive: false ,
+                    CheckoutTime: request.CheckoutTime
 
                 }), { headers: this.headers })
             .toPromise()

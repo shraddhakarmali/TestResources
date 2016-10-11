@@ -79,20 +79,20 @@ namespace ResourceManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            request.RequestedOn = DateTime.Now;
-            request.UserName = User.Identity.Name; 
-
             if (request.RequestId != 0)
             {
-                request.ReturnTime = DateTime.Now;
+                var req = db.Requests.Where(r => r.RequestId == request.RequestId).Single();
+                req.ReturnTime = DateTime.Now;
+                db.SaveChanges();
             }
             else
             {
+                request.RequestedOn = DateTime.Now;
+                request.UserName = User.Identity.Name;
                 request.CheckoutTime = DateTime.Now;
+                db.Requests.Add(request);
+                db.SaveChanges();
             }
-
-            db.Requests.Add(request);
-            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = request.RequestId }, request);
         }

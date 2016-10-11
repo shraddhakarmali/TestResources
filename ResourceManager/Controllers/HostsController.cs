@@ -22,7 +22,7 @@ namespace ResourceManager.Controllers
             var user = User.Identity.Name;
             var results = (from h in db.Hosts
                           from r in db.Requests
-                          .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime != null)
+                          .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime == null)
                           .DefaultIfEmpty()
                           .OrderBy(o => h.HostName)
                           .OrderByDescending(o => o.RequestedOn)
@@ -31,7 +31,7 @@ namespace ResourceManager.Controllers
             {
                 foreach(var req in host.Requests)
                 {
-                    if(string.Compare(req.UserName, user, true) == 0)
+                    if(string.Compare(req.UserName, user, true) == 0 && req.IsInProgress)
                     {
                         host.IsMyRequestPending = true;
                         break;
