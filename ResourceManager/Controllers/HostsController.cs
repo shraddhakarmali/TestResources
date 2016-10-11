@@ -19,7 +19,15 @@ namespace ResourceManager.Controllers
         // GET: api/Hosts
         public IQueryable<Host> GetHosts()
         {
-            return db.Hosts;
+            var results = (from h in db.Hosts
+                          from r in db.Requests
+                          .Where(o => h.HostName == o.HostName && o.IsActive == true)
+                          .DefaultIfEmpty()
+                          .OrderByDescending(o => o.RequestedOn)
+                          select h ).Distinct();
+
+            var list = results.ToList();
+            return results;
         }
 
         // GET: api/Hosts/5

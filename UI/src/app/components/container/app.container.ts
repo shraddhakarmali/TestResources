@@ -6,6 +6,11 @@ import 'rxjs/add/operator/toPromise';
 
 //[{"Requests":[],"HostName":"TestHost","IP":"1.1.1.1","Description":"Test VM"}]
 export class Request {
+    UserName: string;
+    CheckoutTime: string;
+    ReturnTime: string;
+    IsActive: boolean;
+    RequestedOn: string;
 };
 
 export class Host {
@@ -14,7 +19,7 @@ export class Host {
     IP: string;
     Description: string;
     
-
+    
 };
 
 
@@ -29,14 +34,7 @@ hosts = [];
     headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private _http: Http) {
-       /* this.hosts = [
-            { "HostName": "Server 1", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha K", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "True" },
-            { "HostName": "Server 2", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha D", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "false" },
-            { "HostName": "Server 3", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha K", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "True" },
-            { "HostName": "Server 4", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha K", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "True" },
-            { "HostName": "Server 5", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha K", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "False" },
-            { "HostName": "Server 6", "IP": "1.1.1.1", "Description": "Windows 2010", "User": "Shradha K", "Checkout": "12 PM", "Checkin": "1 PM", "IsActive": "False" },
-        ];*/
+      
     }
 
     onRequest(event$) {
@@ -51,7 +49,7 @@ hosts = [];
 
     onRelease(event$) {
         console.log(event$.HostName);
-       /* this._http
+        /*this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: false }), { headers: this.headers })
             .toPromise()
             .then()

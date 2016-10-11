@@ -21,8 +21,7 @@
     <th>Description</th>
 <th>User</th>
 <th>Checkout Time</th>
-<th>Checkin Time</th>
-<th>Is Active</th>
+<!--<th>Checkin Time</th>-->
 <th></th>
   </tr>
     <tr  *ngFor="let host of hosts">
@@ -31,11 +30,11 @@
     <td>{{host.HostName}}</td>
     <td>{{host.IP}}</td> 
     <td>{{host.Description}}</td>
-<td>{{host.UserName}}</td>
-<td>{{host.Checkout}}</td>
-<td>{{host.Checkin}}</td>
-<td>{{host.IsActive}}</td>
-<td><span *ngIf="host.IsActive == 'True'" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+
+<td>{{ host.Requests[0] && host.Requests[0].UserName}}</td>
+<td>{{ host.Requests[0] && host.Requests[0].CheckoutTime}}</td>
+<!--<td>{{ host.Requests[0] && host.Requests[0].ReturnTime}}</td>-->
+<!--<td><span *ngIf="host.Requests[0] && host.Requests[0].IsActive" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>-->
 </tr>
   </table>
 </div>
