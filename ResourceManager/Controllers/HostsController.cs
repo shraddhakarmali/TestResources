@@ -21,7 +21,7 @@ namespace ResourceManager.Controllers
         {
             var results = (from h in db.Hosts
                           from r in db.Requests
-                          .Where(o => h.HostName == o.HostName && o.IsActive == true)
+                          .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime != null)
                           .DefaultIfEmpty()
                           .OrderByDescending(o => o.RequestedOn)
                           select h ).Distinct();

@@ -9,7 +9,7 @@
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Current Checkouts</div>
+  <div class="panel-heading">Click on '+' to reserve the server, '-' to release it</div>
 
   <!-- Table -->
   <table class="table">
@@ -24,9 +24,10 @@
 <!--<th>Checkin Time</th>-->
 <th></th>
   </tr>
-    <tr  *ngFor="let host of hosts">
-<td><div class="btn-group" role="group" aria-label="..."><button type="button" class="btn btn-default" (click)="onRequest(host)"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></div></td>
-<td><div class="btn-group" role="group" aria-label="..."><button type="button" class="btn btn-default" (click)="onRelease(host)"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button></div></td>
+    <tr  *ngFor="let host of hosts" [style.background-color] ="host.Requests[0] && host.Requests[0].IsInProgress && '#F8E1E0'" [style.background-color] ="(!host.Requests[0] || !host.Requests[0].IsInProgress) && '#CCF9CF'">
+<td><div class="btn-group" role="group" aria-label="..."><button type="button" class="btn btn-primary" (click)="onRequest(host)"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></div></td>
+<td><div *ngIf="(host.Requests[0] && host.Requests[0].IsInProgress)"
+    class="btn-group" role="group" aria-label="..."><button type="button" class="btn btn-danger" (click)="onRelease(host)"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button></div></td>
     <td>{{host.HostName}}</td>
     <td>{{host.IP}}</td> 
     <td>{{host.Description}}</td>

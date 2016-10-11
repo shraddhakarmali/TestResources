@@ -11,6 +11,7 @@ export class Request {
     ReturnTime: string;
     IsActive: boolean;
     RequestedOn: string;
+    IsInProgress: boolean
 };
 
 export class Host {
