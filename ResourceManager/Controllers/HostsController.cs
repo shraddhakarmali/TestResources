@@ -23,6 +23,7 @@ namespace ResourceManager.Controllers
                           from r in db.Requests
                           .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime != null)
                           .DefaultIfEmpty()
+                          .OrderBy(o => h.HostName)
                           .OrderByDescending(o => o.RequestedOn)
                           select h ).Distinct();
 

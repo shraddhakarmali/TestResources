@@ -34,27 +34,39 @@ hosts = [];
     myValue = true;
     headers = new Headers({ 'Content-Type': 'application/json' });
 
+    model = new Host();
+    active = true;
+
     constructor(private _http: Http) {
-      
     }
 
     onRequest(event$) {
         console.log(event$.HostName);
-        /*this._http
+        this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: true }), { headers: this.headers })
             .toPromise()
-            .then()
-            .catch();*/
+            .then(()=> { this.getHosts(); })
+            .catch((e) => {console.log(e)});
 
     }
 
     onRelease(event$) {
         console.log(event$.HostName);
-        /*this._http
+        this._http
             .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: false }), { headers: this.headers })
             .toPromise()
-            .then()
-            .catch();*/
+            .then(()=> { this.getHosts(); })
+            .catch((e) => {console.log(e)});
+    }
+
+    onSubmit() {
+        this._http.post(`http://localhost/ResourceManager/api/Hosts`, JSON.stringify({ HostName: this.model.HostName, IP: this.model.IP,
+                            Description: this.model.Description }) , { headers: this.headers }).toPromise().then(()=> {
+                                 this.model = new Host();
+                                 setTimeout(() => this.active = true, 0);
+                                 this.getHosts();
+                            }).catch((e) => {console.log(e)});
+       
     }
 
     ngOnInit() {
@@ -65,13 +77,16 @@ hosts = [];
             .subscribe(x => { });
 
             
+       this.getHosts();
+        //console.log(hostFromServer);
+    }
+
+    getHosts(){
         this._http
             .get(`http://localhost/ResourceManager/api/Hosts`)
             .map((r: Response) => r.json() as Host[]).subscribe(x => { this.hosts = x; console.log(x); },
             e => console.log('onError: %s', e),
             () => console.log('onCompleted'));
 
-        
-        //console.log(hostFromServer);
     }
 }
