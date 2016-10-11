@@ -82,7 +82,7 @@ namespace ResourceManager.Controllers
             request.RequestedOn = DateTime.Now;
             request.UserName = User.Identity.Name; 
 
-            if (!request.IsActive)
+            if (request.RequestId != 0)
             {
                 request.ReturnTime = DateTime.Now;
             }

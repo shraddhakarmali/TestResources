@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 //[{"Requests":[],"HostName":"TestHost","IP":"1.1.1.1","Description":"Test VM"}]
 export class Request {
+    RequestId: number;
     UserName: string;
     CheckoutTime: string;
     ReturnTime: string;
@@ -19,7 +20,7 @@ export class Host {
     HostName: string;
     IP: string;
     Description: string;
-    
+    IsMyRequestPending: Boolean
     
 };
 
@@ -43,7 +44,7 @@ hosts = [];
     onRequest(event$) {
         console.log(event$.HostName);
         this._http
-            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: true }), { headers: this.headers })
+            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ RequestId: 0, HostName: event$.HostName, IsActive: true }), { headers: this.headers })
             .toPromise()
             .then(()=> { this.getHosts(); })
             .catch((e) => {console.log(e)});
@@ -53,7 +54,14 @@ hosts = [];
     onRelease(event$) {
         console.log(event$.HostName);
         this._http
-            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ HostName: event$.HostName, IsActive: false }), { headers: this.headers })
+            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify(
+                { 
+                    RequestId: event$.RequestId,
+                    HostName: event$.HostName, 
+                    IsActive: true ,
+                    CheckoutTime: event$.CheckoutTime
+
+                }), { headers: this.headers })
             .toPromise()
             .then(()=> { this.getHosts(); })
             .catch((e) => {console.log(e)});

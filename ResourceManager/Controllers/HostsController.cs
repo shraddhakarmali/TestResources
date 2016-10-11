@@ -17,18 +17,29 @@ namespace ResourceManager.Controllers
         private ResourcesEntities db = new ResourcesEntities();
 
         // GET: api/Hosts
-        public IQueryable<Host> GetHosts()
+        public List<Host> GetHosts()
         {
+            var user = User.Identity.Name;
             var results = (from h in db.Hosts
                           from r in db.Requests
                           .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime != null)
                           .DefaultIfEmpty()
                           .OrderBy(o => h.HostName)
                           .OrderByDescending(o => o.RequestedOn)
-                          select h ).Distinct();
-
+                          select h ).Distinct().ToList();
+            foreach(var host in results)
+            {
+                foreach(var req in host.Requests)
+                {
+                    if(string.Compare(req.UserName, user, true) == 0)
+                    {
+                        host.IsMyRequestPending = true;
+                        break;
+                    }
+                }
+            }
             var list = results.ToList();
-            return results;
+            return list;
         }
 
         // GET: api/Hosts/5
