@@ -26,14 +26,6 @@ namespace ResourceManager.Models
 
         [JsonIgnore]
         public virtual Host Host { get; set; }
-
-        public bool IsInProgress
-        {
-            get
-            {
-                return IsActive && !ReturnTime.HasValue;
-            }
-        }
-
+        
     }
 }

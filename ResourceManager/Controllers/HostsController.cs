@@ -19,27 +19,37 @@ namespace ResourceManager.Controllers
         // GET: api/Hosts
         public List<Host> GetHosts()
         {
+            db.Configuration.LazyLoadingEnabled = false;
             var user = User.Identity.Name;
-            var results = (from h in db.Hosts
-                          from r in db.Requests
-                          .Where(o => h.HostName == o.HostName && o.IsActive == true && o.ReturnTime == null)
-                          .DefaultIfEmpty()
-                          .OrderBy(o => h.HostName)
-                          .OrderByDescending(o => o.RequestedOn)
-                          select h ).Distinct().ToList();
-            foreach(var host in results)
+            var hosts = db.Hosts.AsNoTracking()
+                           .OrderBy(h => h.HostName)
+                           .ToList();
+            
+
+            var requests = db.Requests
+                            .Where(r => r.IsActive == true)
+                            .ToList();
+            var results = new List<Host>();
+            foreach(var h in hosts)
+            {
+                results.Add(h);
+                foreach(var r in requests.Where(r => string.Compare(r.HostName, h.HostName, true) == 0).ToList())
+                {
+                    h.Requests.Add(r);
+                }
+            }
+            foreach (var host in results)
             {
                 foreach(var req in host.Requests)
                 {
-                    if(string.Compare(req.UserName, user, true) == 0 && req.IsInProgress)
+                    if(string.Compare(req.UserName, user, true) == 0)
                     {
                         host.IsMyRequestPending = true;
                         break;
                     }
                 }
             }
-            var list = results.ToList();
-            return list;
+            return results;
         }
 
         // GET: api/Hosts/5
