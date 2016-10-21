@@ -9,7 +9,7 @@ var webpack = require('webpack');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 
-const localhost = 'localhost';
+const localhost = 'skarmali-lt';
 /**
  * Webpack Constants
  */
