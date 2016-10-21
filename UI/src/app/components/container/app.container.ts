@@ -37,13 +37,15 @@ hosts = [];
     model = new Host();
     active = true;
 
+    serverName = "http://skarmali-lt";
+
     constructor(private _http: Http) {
     }
 
     onRequest(event$) {
         console.log(event$.HostName);
         this._http
-            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify({ RequestId: 0, HostName: event$.HostName, IsActive: true }), { headers: this.headers })
+            .post( this.serverName + `/ResourceManager/api/Requests`, JSON.stringify({ RequestId: 0, HostName: event$.HostName, IsActive: true }), { headers: this.headers })
             .toPromise()
             .then(()=> { this.getHosts(); })
             .catch((e) => {console.log(e)});
@@ -61,7 +63,7 @@ hosts = [];
         });
         console.log(request.RequestId);
         this._http
-            .post(`http://localhost/ResourceManager/api/Requests`, JSON.stringify(
+            .post(this.serverName + `/ResourceManager/api/Requests`, JSON.stringify(
                 { 
                     RequestId: request.RequestId,
                     HostName: event$.HostName, 
@@ -75,7 +77,7 @@ hosts = [];
     }
 
     onSubmit() {
-        this._http.post(`http://localhost/ResourceManager/api/Hosts`, JSON.stringify({ HostName: this.model.HostName, IP: this.model.IP,
+        this._http.post(this.serverName + `/ResourceManager/api/Hosts`, JSON.stringify({ HostName: this.model.HostName, IP: this.model.IP,
                             Description: this.model.Description }) , { headers: this.headers }).toPromise().then(()=> {
                                  this.model = new Host();
                                  setTimeout(() => this.active = true, 0);
@@ -87,7 +89,7 @@ hosts = [];
     ngOnInit() {
         //[{"Requests":[],"HostName":"TestHost","IP":"1.1.1.1","Description":"Test VM"}]
         this._http
-            .get(`http://localhost/ResourceManager/api/Users`)
+            .get(this.serverName + `/ResourceManager/api/Users`)
             .map((r: Response) => { this.user = r.json(); console.log("User name in map " + r.json()); } )
             .subscribe(x => { });
 
@@ -98,7 +100,7 @@ hosts = [];
 
     getHosts(){
         this._http
-            .get(`http://localhost/ResourceManager/api/Hosts`)
+            .get(this.serverName + `/ResourceManager/api/Hosts`)
             .map((r: Response) => r.json() as Host[]).subscribe(x => { this.hosts = x; console.log(x); },
             e => console.log('onError: %s', e),
             () => console.log('onCompleted'));
