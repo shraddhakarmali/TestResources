@@ -15,7 +15,7 @@ minify.collapseWhitespace = true;
  */
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-    title: 'App Template',
+    title: 'Automation Test Servers',
     baseUrl: '/',
     isDevServer: helpers.isWebpackDevServer()
 };
