@@ -5,7 +5,11 @@ import '@angular/core';
 import '@angular/common';
 import '@angular/http';
 import '@angular/router';
+import '@angular/forms';
+
+// AngularClass
+import '@angularclass/hmr';
+
 // RxJS
-import 'rxjs';
-// Other vendors for example jQuery, Lodash or Bootstrap
-// You can import js, ts, css, sass, ...
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';

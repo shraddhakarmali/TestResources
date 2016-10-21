@@ -1,46 +1,105 @@
-var webpackConfig = require('./webpack.test.js');
+/**
+ * @author: @AngularClass
+ */
 
 module.exports = function(config) {
-    var _config = {
-        basePath: '',
+  var testWebpackConfig = require('./webpack.test.js')({env: 'test'});
 
-        frameworks: ['jasmine'],
+  var configuration = {
 
-        files: [
-            { pattern: './config/karma-test-shim.js', watched: false }
-        ],
+    // base path that will be used to resolve all patterns (e.g. files, exclude)
+    basePath: '',
 
-        preprocessors: {
-            './config/karma-test-shim.js': ['coverage', 'webpack', 'sourcemap']
-        },
+    /*
+     * Frameworks to use
+     *
+     * available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+     */
+    frameworks: ['jasmine'],
 
-        webpack: webpackConfig,
+    // list of files to exclude
+    exclude: [ ],
 
-        webpackMiddleware: {
-            stats: 'errors-only'
-        },
+    /*
+     * list of files / patterns to load in the browser
+     *
+     * we are building the test environment in ./spec-bundle.js
+     */
+    files: [ { pattern: './config/karma-test-shim.js', watched: false } ],
 
-        webpackServer: {
-            noInfo: true
-        },
+    /*
+     * preprocess matching files before serving them to the browser
+     * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+     */
+    preprocessors: { './config/karma-test-shim.js': ['coverage', 'webpack', 'sourcemap'] },
 
-        coverageReporter: {
-            dir: 'coverage/',
-            reporters: [
-                { type: 'text-summary' },
-                { type: 'json' },
-                { type: 'html' }
-            ]
-        },
+    // Webpack Config at ./webpack.test.js
+    webpack: testWebpackConfig,
 
-        reporters: ['mocha', 'coverage', 'progress'],
-        port: 9876,
-        colors: true,
-        logLevel: config.LOG_INFO,
-        autoWatch: false,
-        browsers: ['Chrome'],
-        singleRun: true
-    };
+    coverageReporter: {
+      type: 'in-memory'
+    },
 
-    config.set(_config);
+    remapCoverageReporter: {
+      'text-summary': null,
+      json: './coverage/coverage.json',
+      html: './coverage/html'
+    },
+
+    // Webpack please don't spam the console when running in karma!
+    webpackMiddleware: { stats: 'errors-only'},
+
+    /*
+     * test results reporter to use
+     *
+     * possible values: 'dots', 'progress'
+     * available reporters: https://npmjs.org/browse/keyword/karma-reporter
+     */
+    reporters: [ 'mocha', 'coverage', 'remap-coverage' ],
+
+    // web server port
+    port: 9876,
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+    /*
+     * level of logging
+     * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+     */
+    logLevel: config.LOG_INFO,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
+
+    /*
+     * start these browsers
+     * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+     */
+    browsers: [
+      'PhantomJS'
+    ],
+
+    customLaunchers: {
+      ChromeTravisCi: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
+
+    /*
+     * Continuous Integration mode
+     * if true, Karma captures browsers, runs the tests and exits
+     */
+    singleRun: true
+  };
+
+  if (process.env.TRAVIS){
+    configuration.browsers = [
+      'ChromeTravisCi',
+      'PhantomJS'
+    ];
+  }
+
+  config.set(configuration);
 };
