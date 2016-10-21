@@ -25,11 +25,12 @@ export class Host {
 
 
 @Component({
-    selector: 'app-container',
-    templateUrl: './app.container.html',
+    selector: 'app',
+    templateUrl: './app.html',
 })
-export class AppContainer implements OnInit {
-hosts = [];
+export class App  implements OnInit{
+
+    hosts = [];
     user = "";
     myValue = true;
     headers = new Headers({ 'Content-Type': 'application/json' });
@@ -40,6 +41,7 @@ hosts = [];
     serverName = "http://skarmali-lt";
 
     constructor(private _http: Http) {
+        console.log('App.constructor()');
     }
 
     onRequest(event$) {

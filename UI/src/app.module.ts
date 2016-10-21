@@ -1,9 +1,9 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
-import {AppContainer} from './app/components/container/app.container';
+import { App } from './app';
 
 @NgModule({
   imports:      [
@@ -12,9 +12,10 @@ import {AppContainer} from './app/components/container/app.container';
                     HttpModule
                 ],
   declarations: [
-                    AppContainer
+                    App
                     ],
-  bootstrap:    [ AppContainer ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  bootstrap:    [ App ],
 })
 
 export class AppModule { }
