@@ -1,9 +1,9 @@
 {
-    "name": "ZGWebTemplate",
-    "description": "Web app template",
+    "name": "Test Server Manager",
+    "description": "Test Server Manager",
     "main": "",
     "authors": [
-        "ndessai <ndessai@gmail.com>"
+        "sdessai <sdessai@gmail.com>"
     ],
     "license": "MIT",
     "homepage": "",

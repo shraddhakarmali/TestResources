@@ -1,7 +1,7 @@
 {
-    "name": "ZGWebTemplate",
+    "name": "Test Server Manager",
     "version": "1.0.0",
-    "description": "Web App Template",
+    "description": "Test Server Manager",
     "scripts": {
         "postinstall": "bower install -F",
         "start": "webpack-dev-server --inline --progress --port 8080 --config webpack.dev.js",
